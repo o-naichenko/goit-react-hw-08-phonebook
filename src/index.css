@@ -1,8 +1,9 @@
 @import-normalize;
 :root {
-  --blue-color: rgb(60, 144, 255);
+  --blue-color: #3f51b5;
   --grey-shadow: 0px 0px 6px 0px #7c7c7c;
-  --grey-color: rgb(204, 204, 204);
+  --link-color: rgb(204, 204, 204);
+  --active-link-color: #e84a5f;
 }
 body {
   margin: 0;

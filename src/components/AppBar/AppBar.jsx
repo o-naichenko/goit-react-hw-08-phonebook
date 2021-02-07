@@ -1,18 +1,20 @@
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-} from '@material-ui/core';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { AppBar, Toolbar } from '@material-ui/core';
+import Navigation from '../Navigation';
+import AuthNav from '../AuthNav';
+import UserMenu from '../UserMenu';
+import s from './AppBar.module.css';
+
+import { authSelectors } from '../../redux/auth';
 
 export default function AppBarComponent() {
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   return (
     <AppBar position="static">
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu"></IconButton>
-        <Typography variant="h6">News</Typography>
-        <Button color="inherit">Login</Button>
+      <Toolbar className={s.container}>
+        <Navigation />
+        {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </Toolbar>
     </AppBar>
   );
