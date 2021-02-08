@@ -1,26 +1,52 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
 
-// import ContactsView from './views/ContactsView';
-// import HomeView from './views/HomeView';
-// import LoginView from './views/LoginView';
-// import RegisterView from './views/RegisterView';
 import AppBarComponent from './components/AppBar';
-import RegisterView from './views/RegisterView';
-import LogInView from './views/LogInView';
+import authOperations from './redux/auth/auth-operations';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
+import { authSelectors } from 'redux/auth';
+
+const ContactsView = lazy(() => import('./views/ContactsView'));
+const HomeView = lazy(() => import('./views/HomeView'));
+const LogInView = lazy(() => import('./views/LogInView'));
+const RegisterView = lazy(() => import('./views/RegisterView'));
 
 function App() {
-  return (
-    <>
-      <AppBarComponent />
+  const dispatch = useDispatch();
+  const isAuthLoading = useSelector(authSelectors.getIsLoading);
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
-      <Switch>
-        {/* <Route exact path="/" component={HomeView} /> */}
-        <Route path="/register" component={RegisterView} />
-        <Route path="/login" component={LogInView} />
-        {/* <Route path="contacts" component={ContactsView} /> */}
-      </Switch>
-    </>
+  return (
+    !isAuthLoading && (
+      <>
+        <AppBarComponent />
+
+        <Switch>
+          <Suspense fallback={<CircularProgress disableShrink />}>
+            <PublicRoute exact path="/">
+              <HomeView />
+            </PublicRoute>
+
+            <PublicRoute exact path="/register" restricted>
+              <RegisterView />
+            </PublicRoute>
+
+            <PublicRoute exact path="/login" restricted>
+              <LogInView />
+            </PublicRoute>
+
+            <PrivateRoute path="/contacts">
+              <ContactsView />
+            </PrivateRoute>
+          </Suspense>
+        </Switch>
+      </>
+    )
   );
 }
 

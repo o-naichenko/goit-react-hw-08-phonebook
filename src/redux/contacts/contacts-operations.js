@@ -1,17 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { serverAPI } from 'server-API';
 
-// import contactsActions from './contacts-actions';
-
-// export const fetchContacts = () => async dispatch => {
-//   dispatch(contactsActions.fetchContactsRequest());
-//   try {
-//     const contacts = await serverApi.fetchContacts();
-//     dispatch(contactsActions.fetchContactsSuccess(contacts));
-//   } catch (error) {
-//     dispatch(contactsActions.fetchContactsError(error));
-//   }
-// };
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
