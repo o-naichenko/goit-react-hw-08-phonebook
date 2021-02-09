@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-
 import { useDispatch } from 'react-redux';
+import { Container, Button, Paper, TextField } from '@material-ui/core';
 import authOperations from 'redux/auth/auth-operations';
+import s from './SignUpForm.module.css';
 
 export default function SignUpForm() {
   const [name, setName] = useState('');
@@ -17,7 +18,7 @@ export default function SignUpForm() {
   };
 
   const onChangeHandler = e => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.target;
     switch (name) {
       case 'name':
         setName(value);
@@ -44,38 +45,53 @@ export default function SignUpForm() {
     clearState();
   };
   return (
-    <form onSubmit={onSubmitHandler}>
-      <label>
-        <span>Name:</span>
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          value={name}
-          onChange={onChangeHandler}
-        ></input>
-      </label>
-      <label>
-        <span>Email:</span>
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={onChangeHandler}
-        ></input>
-      </label>
-      <label>
-        <span>Password:</span>
-        <input
-          type="text"
-          placeholder="Password"
-          name="password"
-          value={password}
-          onChange={onChangeHandler}
-        ></input>
-      </label>
-      <button type="submit">Add contact</button>
-    </form>
+    <Container>
+      <p>
+        Для реєстрації нового користувача, будь ласка, вкажіть наступні дані:
+      </p>
+      <Paper elevation={3} className={s.paper}>
+        <form onSubmit={onSubmitHandler} className={s.form}>
+          <ul className={s.list}>
+            <li className={s.item}>
+              <TextField
+                fullWidth={true}
+                variant="outlined"
+                size="small"
+                label="Ім'я:"
+                name="name"
+                value={name}
+                onChange={onChangeHandler}
+              ></TextField>
+            </li>
+            <li className={s.item}>
+              <TextField
+                fullWidth={true}
+                variant="outlined"
+                size="small"
+                name="email"
+                label="Адреса електронної пошти:"
+                value={email}
+                onChange={onChangeHandler}
+              ></TextField>
+            </li>
+            <li className={s.item}>
+              <TextField
+                fullWidth={true}
+                variant="outlined"
+                size="small"
+                type="text"
+                label="Код доступу:"
+                name="password"
+                value={password}
+                onChange={onChangeHandler}
+              ></TextField>
+            </li>
+          </ul>
+          <Button type="submit" variant="contained" size="small">
+            Add contact
+          </Button>
+        </form>
+      </Paper>
+    </Container>
   );
 }

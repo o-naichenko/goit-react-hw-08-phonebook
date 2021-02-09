@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button, Paper, TextField } from '@material-ui/core';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import s from './ContactForm.module.css';
 
@@ -42,7 +42,7 @@ export default function ContactForm() {
   }
 
   const onChangeHandler = e => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.target;
     switch (name) {
       case 'name':
         setName(value);
@@ -57,7 +57,7 @@ export default function ContactForm() {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    const { name, number } = e.currentTarget;
+    const { name, number } = e.target;
     const newContact = {
       name: name.value,
       number: number.value,
@@ -70,32 +70,35 @@ export default function ContactForm() {
     }
   };
   return (
-    <form className={s.Form} onSubmit={onSubmitHandler}>
-      <label className={s.label}>
-        <span>Name:</span>
-        <input
-          className={s.input}
-          type="text"
-          placeholder="Name"
-          name="name"
-          value={name}
-          onChange={onChangeHandler}
-        ></input>
-      </label>
-      <label className={s.label}>
-        <span>Number:</span>
-        <input
-          className={s.input}
-          type="tel"
-          placeholder="Phone number"
-          name="number"
-          value={number}
-          onChange={onChangeHandler}
-        ></input>
-      </label>
-      <button className={s.button} type="submit">
-        Add contact
-      </button>
-    </form>
+    <Box>
+      <Paper elevation={3} className={s.paper}>
+        <b>Додати новий контакт:</b>
+        <form className={s.form} onSubmit={onSubmitHandler}>
+          <TextField
+            className={s.input}
+            variant="outlined"
+            size="small"
+            type="text"
+            label="Ім'я"
+            name="name"
+            value={name}
+            onChange={onChangeHandler}
+          ></TextField>
+          <TextField
+            className={s.input}
+            variant="outlined"
+            size="small"
+            type="tel"
+            label="Номер телефону"
+            name="number"
+            value={number}
+            onChange={onChangeHandler}
+          ></TextField>
+          <Button variant="contained" size="small" type="submit">
+            Зберегти
+          </Button>
+        </form>
+      </Paper>
+    </Box>
   );
 }

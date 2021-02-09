@@ -1,0 +1,12 @@
+.paper {
+  margin: 0 auto;
+  max-width: 360px;
+  padding: 24px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  margin-bottom: 24px;
+}

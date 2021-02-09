@@ -10,7 +10,7 @@ const contacts = createReducer([], {
   [addContact.fulfilled]: (state, action) => [...state, action.payload],
   [deleteContact.fulfilled]: (state, { payload }) =>
     state.filter(({ id }) => id.toString() !== payload),
-  [fetchContacts.fulfilled]: (_, action) => action.payload,
+  [fetchContacts.fulfilled]: (_, { payload }) => payload,
 });
 
 const filter = createReducer('', {

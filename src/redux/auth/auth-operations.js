@@ -1,23 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { serverAPI } from '../../server-API';
 
-const register = createAsyncThunk('auth/register', async credentials => {
-  try {
-    const data = await serverAPI.signUp(credentials);
-    serverAPI.setToken(data.token);
-    return data;
-  } catch (error) {
-    alert(error.message);
-  }
-});
+const register = createAsyncThunk(
+  'auth/register',
+  async (credentials, thunkAPI) => {
+    try {
+      const data = await serverAPI.signUp(credentials);
+      serverAPI.setToken(data.token);
+      return data;
+    } catch (error) {
+      alert(
+        'Не вдалося зареєструвати користувача, перевірте правильність введених даних',
+      );
+      return thunkAPI.rejectWithValue(null);
+    }
+  },
+);
 
-const logIn = createAsyncThunk('auth/login', async credentials => {
+const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
     const data = await serverAPI.logIn(credentials);
     serverAPI.setToken(data.token);
+
     return data;
   } catch (error) {
-    alert(error.message);
+    alert(
+      'Не вдалося авторизувати користувача, перевірте правильність введених даних',
+    );
+    return thunkAPI.rejectWithValue(null);
   }
 });
 
@@ -36,7 +46,7 @@ const fetchCurrentUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue();
+      return alert('no token');
     }
     serverAPI.setToken(persistedToken);
     try {

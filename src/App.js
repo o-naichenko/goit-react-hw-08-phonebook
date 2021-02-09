@@ -8,6 +8,7 @@ import authOperations from './redux/auth/auth-operations';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import { authSelectors } from 'redux/auth';
+import s from './App.module.css';
 
 const ContactsView = lazy(() => import('./views/ContactsView'));
 const HomeView = lazy(() => import('./views/HomeView'));
@@ -16,37 +17,36 @@ const RegisterView = lazy(() => import('./views/RegisterView'));
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthLoading = useSelector(authSelectors.getIsLoading);
+  const token = useSelector(authSelectors.getToken);
+
   useEffect(() => {
-    dispatch(authOperations.fetchCurrentUser());
-  }, [dispatch]);
+    token && dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch, token]);
 
   return (
-    !isAuthLoading && (
-      <>
-        <AppBarComponent />
+    <div className={s.mainContainer}>
+      <AppBarComponent />
 
-        <Switch>
-          <Suspense fallback={<CircularProgress disableShrink />}>
-            <PublicRoute exact path="/">
-              <HomeView />
-            </PublicRoute>
+      <Switch>
+        <Suspense fallback={<CircularProgress disableShrink />}>
+          <PublicRoute exact path="/">
+            <HomeView />
+          </PublicRoute>
 
-            <PublicRoute exact path="/register" restricted>
-              <RegisterView />
-            </PublicRoute>
+          <PublicRoute exact path="/register" restricted>
+            <RegisterView />
+          </PublicRoute>
 
-            <PublicRoute exact path="/login" restricted>
-              <LogInView />
-            </PublicRoute>
+          <PublicRoute exact path="/login" restricted>
+            <LogInView />
+          </PublicRoute>
 
-            <PrivateRoute path="/contacts">
-              <ContactsView />
-            </PrivateRoute>
-          </Suspense>
-        </Switch>
-      </>
-    )
+          <PrivateRoute path="/contacts">
+            <ContactsView />
+          </PrivateRoute>
+        </Suspense>
+      </Switch>
+    </div>
   );
 }
 

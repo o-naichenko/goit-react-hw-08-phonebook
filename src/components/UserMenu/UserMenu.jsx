@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
 import { authOperations, authSelectors } from '../../redux/auth';
 import s from './UserMenu.module.css';
 import userDefaultAvatar from '../../images/userDefaultAvatar.png';
@@ -11,11 +12,16 @@ export default function UserMenu() {
 
   return (
     <div className={s.container}>
-      <img src={avatar} alt="" width="32" className={s.avatar} />
+      <img className={s.avatar} src={avatar} alt="" width="32" />
       <span className={s.name}>Привіт, {name}</span>
-      <button type="button" onClick={() => dispatch(authOperations.logOut())}>
+      <Button
+        type="button"
+        variant="contained"
+        size="small"
+        onClick={() => dispatch(authOperations.logOut())}
+      >
         Вийти
-      </button>
+      </Button>
     </div>
   );
 }

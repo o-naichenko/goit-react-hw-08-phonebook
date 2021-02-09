@@ -1,17 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { serverAPI } from 'server-API';
 
-
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, { rejectWithValue }) => {
     try {
       const contacts = await serverAPI.fetchContacts();
       return contacts;
-    } catch (error) {
-      // Use `err.response.data` as `action.payload` for a `rejected` action,
-      // by explicitly returning it using the `rejectWithValue()` utility
-      return rejectWithValue(error);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
     }
   },
 );

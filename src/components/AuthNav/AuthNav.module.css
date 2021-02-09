@@ -2,8 +2,7 @@
   display: inline-block;
   text-decoration: none;
   padding: 12;
-  font-weight: 700;
-  color: var(--link-color);
+  color: var(--blue);
 }
 .activeLink {
   color: var(--active-link-color);

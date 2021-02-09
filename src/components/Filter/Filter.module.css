@@ -1,6 +1,4 @@
-@import '../../index.css';
-
-.label {
+/* .label {
   display: block;
   padding: 20px;
   background-color: var(--grey-color);
@@ -19,4 +17,7 @@
 }
 .input:focus {
   box-shadow: var(--grey-shadow);
+} */
+.paper {
+  padding: 16px;
 }

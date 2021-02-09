@@ -10,8 +10,9 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import contactsReducer from './contacts/contacts-reducer';
+// import contactsReducer from './contacts/contacts-reducer';
 import authReducer from './auth/auth-slice';
+import contactsReducer from './contacts/contacts-slice';
 
 // const contactsPersistConfig = {
 //   key: 'contacts',

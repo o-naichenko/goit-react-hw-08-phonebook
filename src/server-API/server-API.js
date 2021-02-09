@@ -28,7 +28,7 @@ export async function current() {
 
 // CONTACTS
 export async function fetchContacts() {
-  const { data } = axios.get('/contacts');
+  const { data } = await axios.get('/contacts');
   return data;
 }
 

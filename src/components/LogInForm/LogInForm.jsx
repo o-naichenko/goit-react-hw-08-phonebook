@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { TextField, Button, Paper } from '@material-ui/core';
 import authOperations from 'redux/auth/auth-operations';
+import s from './LogInForm.module.css';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -14,7 +16,7 @@ export default function LoginForm() {
   };
 
   const onChangeHandler = e => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.target;
     switch (name) {
       case 'email':
         setEmail(value);
@@ -37,28 +39,33 @@ export default function LoginForm() {
     clearState();
   };
   return (
-    <form onSubmit={onSubmitHandler}>
-      <label>
-        <span>Email:</span>
-        <input
+    <Paper elevation={3} className={s.paper}>
+      <form onSubmit={onSubmitHandler} className={s.form}>
+        <TextField
+          className={s.input}
+          variant="outlined"
+          size="small"
+          label="Email:"
           type="email"
-          placeholder="Email"
           name="email"
           value={email}
           onChange={onChangeHandler}
-        ></input>
-      </label>
-      <label>
-        <span>Password:</span>
-        <input
+        ></TextField>
+        <TextField
+          className={s.input}
+          variant="outlined"
+          size="small"
+          label="Password:"
           type="text"
-          placeholder="Password"
           name="password"
           value={password}
           onChange={onChangeHandler}
-        ></input>
-      </label>
-      <button type="submit">Log in</button>
-    </form>
+        ></TextField>
+
+        <Button variant="contained" size="small" type="submit">
+          Увійти
+        </Button>
+      </form>
+    </Paper>
   );
 }

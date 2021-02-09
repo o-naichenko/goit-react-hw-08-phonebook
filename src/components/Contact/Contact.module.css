@@ -1,21 +1,18 @@
-.item {
-  display: flex;
-  padding: 20px;
-  justify-content: space-between;
-  background-color: var(--grey-color);
-  border: solid 1px #fff;
-}
 .text {
+  display: block;
   padding: 0;
   margin: 0;
 }
-.deleteBtn {
-  margin: 0;
-  border: 0;
-  outline: 0;
+.text {
+  margin-right: 16px;
+  text-align: left;
 }
-.deleteBtn:hover {
-  background-color: red;
-  box-shadow: var(--grey-shadow);
-  color: #fff;
+.paper {
+  width: 360px;
+  padding: 16px;
+  display: flex;
+  align-items: baseline;
+  /* padding: 20px; */
+  justify-content: space-between;
+  /* border: solid 1px #fff; */
 }

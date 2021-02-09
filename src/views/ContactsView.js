@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Box } from '@material-ui/core';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
 
 import ContactForm from 'components/ContactForm';
@@ -15,12 +16,14 @@ export default function ContactsView() {
   useEffect(() => dispatch(contactsOperations.fetchContacts()), [dispatch]);
 
   return (
-    <div className={s.App}>
-      <h1 className={s.header}>Phonebook</h1>
-      <ContactForm />
-      <h2 className={s.header}>Contacts</h2>
-      <Filter />
-      {contacts.length > 0 && <ContactList />}
-    </div>
+    <Box className={s.container}>
+      <Box>
+        <ContactForm />
+      </Box>
+      <Box>
+        <Filter />
+        {contacts.length > 0 && <ContactList />}
+      </Box>
+    </Box>
   );
 }

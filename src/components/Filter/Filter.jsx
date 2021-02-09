@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Paper } from '@material-ui/core';
 import { contactsActions, contactsSelectors } from 'redux/contacts';
-// import contactsActions from 'redux/contacts';
 import s from './Filter.module.css';
 
 const Filter = () => {
@@ -9,17 +9,21 @@ const Filter = () => {
   const value = useSelector(contactsSelectors.getFilter);
 
   return (
-    <label className={s.label}>
-      <span>Find contacts by name</span>
-      <input
-        className={s.input}
+    <Paper elevation={3} className={s.paper}>
+      <TextField
+        fullWidth={true}
+        variant="outlined"
+        size="small"
+        margin="dense"
+        label="Пошук за іменем"
         type="text"
         name="filter"
         value={value}
-        placeholder="Type name here"
-        onChange={e => dispatch(contactsActions.changeFilter(e.target.value))}
-      ></input>
-    </label>
+        onChange={e =>
+          dispatch(contactsActions.changeFilter(e.currentTarget.value))
+        }
+      ></TextField>
+    </Paper>
   );
 };
 

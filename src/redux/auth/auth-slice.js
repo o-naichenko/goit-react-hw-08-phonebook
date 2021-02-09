@@ -24,7 +24,6 @@ const authSlice = createSlice({
     },
     [authOperations.register.rejected](state, { payload }) {
       state.isLoading = false;
-      alert(payload.message);
     },
     // logIn
     [authOperations.logIn.pending](state) {
@@ -36,16 +35,15 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.isLoading = false;
     },
-    [authOperations.logIn.rejected](state, { payload }) {
+    [authOperations.logIn.rejected](state) {
       state.isLoading = false;
-      alert(payload.message);
     },
     // logOut
     [authOperations.logOut.pending](state) {
       state.isLoading = true;
     },
     [authOperations.logOut.fulfilled](state) {
-      state.user = { name: null, email: null };
+      state.user = initialState.user;
       state.token = null;
       state.isLoggedIn = false;
       state.isLoading = false;
@@ -63,9 +61,9 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.isLoading = false;
     },
-    [authOperations.fetchCurrentUser.rejected](state, { payload }) {
+    [authOperations.fetchCurrentUser.rejected](state, action) {
       state.isLoading = false;
-      alert(payload.message);
+      alert('Не вдалося отримати дані користувача від сервера');
     },
   },
 });

@@ -1,40 +1,13 @@
-@import '../../index.css';
-.Form {
-  display: block;
-  max-width: 300px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  padding: 20px;
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
   background-color: var(--grey-color);
 }
-.label {
-  display: block;
-  margin-bottom: 20px;
-  /* justify-content: space-between; */
-  font-weight: 700;
-  text-align: left;
-}
-.label span {
-  display: block;
-  margin-bottom: 10px;
-}
-.input {
-  padding: 10px;
-  border: 0;
-  outline: 0;
-}
-.input:focus {
-  box-shadow: var(--grey-shadow);
-}
-.button {
-  padding: 10px;
-  border: 0;
 
-  outline: 0;
-  background-color: #fff;
+.input {
+  margin-bottom: 16px;
 }
-button:hover {
-  background-color: var(--blue-color);
-  box-shadow: var(--grey-shadow);
-  color: #fff;
+.paper {
+  padding: 24px;
 }

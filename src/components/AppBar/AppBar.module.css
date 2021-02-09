@@ -1,3 +1,6 @@
+.AppBar {
+  margin-bottom: 20px;
+}
 .container {
   justify-content: space-between;
 }
