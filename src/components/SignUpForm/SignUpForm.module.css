@@ -1,5 +1,5 @@
 .form {
-  margin: 0 auto;
+  margin-top: 16px;
   text-align: center;
 }
 .list {
@@ -8,10 +8,11 @@
   list-style-type: none;
 }
 
-.item + .item {
-  margin-top: 10px;
+.item {
+  margin-bottom: 16px;
 }
 .paper {
+  text-align: center;
   margin: 0 auto;
   max-width: 360px;
   padding: 24px;

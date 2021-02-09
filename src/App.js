@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Box } from '@material-ui/core';
 
 import AppBarComponent from './components/AppBar';
 import authOperations from './redux/auth/auth-operations';
@@ -28,7 +28,13 @@ function App() {
       <AppBarComponent />
 
       <Switch>
-        <Suspense fallback={<CircularProgress disableShrink />}>
+        <Suspense
+          fallback={
+            <Box className={s.box}>
+              <CircularProgress disableShrink />
+            </Box>
+          }
+        >
           <PublicRoute exact path="/">
             <HomeView />
           </PublicRoute>

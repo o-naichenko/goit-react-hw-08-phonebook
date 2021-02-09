@@ -45,7 +45,7 @@ export default function LoginForm() {
           className={s.input}
           variant="outlined"
           size="small"
-          label="Email:"
+          label="Адреса електронної пошти:"
           type="email"
           name="email"
           value={email}
@@ -55,7 +55,7 @@ export default function LoginForm() {
           className={s.input}
           variant="outlined"
           size="small"
-          label="Password:"
+          label="Код доступу:"
           type="text"
           name="password"
           value={password}

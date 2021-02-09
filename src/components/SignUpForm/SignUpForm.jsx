@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Button, Paper, TextField } from '@material-ui/core';
+import {
+  Container,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import authOperations from 'redux/auth/auth-operations';
 import s from './SignUpForm.module.css';
 
@@ -46,10 +52,10 @@ export default function SignUpForm() {
   };
   return (
     <Container>
-      <p>
-        Для реєстрації нового користувача, будь ласка, вкажіть наступні дані:
-      </p>
       <Paper elevation={3} className={s.paper}>
+        <Typography>
+          Для реєстрації нового користувача, будь ласка, вкажіть наступні дані:
+        </Typography>
         <form onSubmit={onSubmitHandler} className={s.form}>
           <ul className={s.list}>
             <li className={s.item}>
@@ -88,7 +94,7 @@ export default function SignUpForm() {
             </li>
           </ul>
           <Button type="submit" variant="contained" size="small">
-            Add contact
+            Додати користувача
           </Button>
         </form>
       </Paper>
