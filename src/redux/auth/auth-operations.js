@@ -45,7 +45,7 @@ const fetchCurrentUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-    if (persistedToken === null) {
+    if (!persistedToken) {
       return alert('no token');
     }
     serverAPI.setToken(persistedToken);
@@ -53,7 +53,10 @@ const fetchCurrentUser = createAsyncThunk(
       const currentUser = await serverAPI.current();
       return currentUser;
     } catch (error) {
-      alert(error.message);
+      alert(
+        'Не вдалося отримати дані користувача від сервера, увійдіть повторно',
+      );
+      return thunkAPI.rejectWithValue(error);
     }
   },
 );

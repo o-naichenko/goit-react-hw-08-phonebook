@@ -17,12 +17,10 @@ const initialState = {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
+  extraReducers: {
     [contactsActions.changeFilter](state, { payload }) {
       state.filter = payload;
     },
-  },
-  extraReducers: {
     // fetchContacts
     [contactsOperations.fetchContacts.pending](state) {
       state.isLoading = true;
@@ -46,13 +44,16 @@ const contactsSlice = createSlice({
       state.isLoading = false;
     },
     // deleteContacts
-    [contactsOperations.deleteContacts.pending](state) {
+    [contactsOperations.deleteContact.pending](state) {
       state.isLoading = true;
     },
-    [contactsOperations.deleteContacts.fulfilled](state) {
+    [contactsOperations.deleteContact.fulfilled](state, { payload }) {
+      state.contacts = [
+        ...state.contacts.filter(({ id }) => id.toString() !== payload),
+      ];
       state.isLoading = false;
     },
-    [contactsOperations.deleteContacts.rejected](state) {
+    [contactsOperations.deleteContact.rejected](state) {
       state.isLoading = false;
     },
   },

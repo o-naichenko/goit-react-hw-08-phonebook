@@ -4,3 +4,6 @@
   margin: 0 auto;
   padding: 20px;
 }
+.box {
+  width: calc(100% / 3);
+}

@@ -19,9 +19,9 @@ const Filter = () => {
         type="text"
         name="filter"
         value={value}
-        onChange={e =>
-          dispatch(contactsActions.changeFilter(e.currentTarget.value))
-        }
+        onChange={e => {
+          dispatch(contactsActions.changeFilter(e.target.value));
+        }}
       ></TextField>
     </Paper>
   );

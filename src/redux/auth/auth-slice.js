@@ -62,8 +62,10 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     [authOperations.fetchCurrentUser.rejected](state, action) {
-      state.isLoading = false;
-      alert('Не вдалося отримати дані користувача від сервера');
+      state.user = initialState.user;
+      state.token = initialState.token;
+      state.isLoggedIn = initialState.isLoggedIn;
+      state.isLoading = initialState.isLoading;
     },
   },
 });

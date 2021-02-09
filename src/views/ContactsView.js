@@ -17,10 +17,10 @@ export default function ContactsView() {
 
   return (
     <Box className={s.container}>
-      <Box>
+      <Box className={s.box}>
         <ContactForm />
       </Box>
-      <Box>
+      <Box className={s.box}>
         <Filter />
         {contacts.length > 0 && <ContactList />}
       </Box>
