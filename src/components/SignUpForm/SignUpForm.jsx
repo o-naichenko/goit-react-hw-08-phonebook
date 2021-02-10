@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Container,
@@ -9,14 +9,29 @@ import {
 } from '@material-ui/core';
 import authOperations from 'redux/auth/auth-operations';
 import s from './SignUpForm.module.css';
+import tools from 'tools';
 
 export default function SignUpForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nameValid, setNameValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
+  const [formValid, setFormValid] = useState(false);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    name !== '' &&
+    password !== '' &&
+    email !== '' &&
+    passwordValid &&
+    nameValid &&
+    emailValid
+      ? setFormValid(true)
+      : setFormValid(false);
+  }, [email, emailValid, name, nameValid, password, passwordValid]);
   const clearState = () => {
     setName('');
     setEmail('');
@@ -28,15 +43,18 @@ export default function SignUpForm() {
     switch (name) {
       case 'name':
         setName(value);
+        setNameValid(tools.validator(name, value));
         break;
       case 'email':
         setEmail(value);
+        setEmailValid(tools.validator(name, value));
         break;
       case 'password':
         setPassword(value);
+        setPasswordValid(tools.validator(name, value));
         break;
       default:
-        return;
+        break;
     }
   };
 
@@ -50,6 +68,7 @@ export default function SignUpForm() {
     dispatch(authOperations.register(signupData));
     clearState();
   };
+
   return (
     <Container>
       <Paper elevation={3} className={s.paper}>
@@ -60,6 +79,8 @@ export default function SignUpForm() {
           <ul className={s.list}>
             <li className={s.item}>
               <TextField
+                error={!nameValid}
+                helperText={!nameValid && 'Має містити щонайменше 4 символи'}
                 fullWidth={true}
                 variant="outlined"
                 size="small"
@@ -71,6 +92,10 @@ export default function SignUpForm() {
             </li>
             <li className={s.item}>
               <TextField
+                error={!emailValid}
+                helperText={
+                  !emailValid && 'Введіть коректну адресу: user@mail.com'
+                }
                 fullWidth={true}
                 variant="outlined"
                 size="small"
@@ -82,6 +107,10 @@ export default function SignUpForm() {
             </li>
             <li className={s.item}>
               <TextField
+                error={!passwordValid}
+                helperText={
+                  !passwordValid && 'Має містити щонайменше 7 символів'
+                }
                 fullWidth={true}
                 variant="outlined"
                 size="small"
@@ -93,7 +122,12 @@ export default function SignUpForm() {
               ></TextField>
             </li>
           </ul>
-          <Button type="submit" variant="contained" size="small">
+          <Button
+            disabled={!formValid}
+            type="submit"
+            variant="contained"
+            size="small"
+          >
             Додати користувача
           </Button>
         </form>
