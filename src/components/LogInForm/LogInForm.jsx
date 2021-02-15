@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Paper } from '@material-ui/core';
-import authOperations from 'redux/auth/auth-operations';
+import { authOperations } from 'redux/auth';
+import { authActions } from 'redux/auth';
 import tools from 'tools/tools';
 import s from './LogInForm.module.css';
 
@@ -11,7 +12,6 @@ export default function LoginForm() {
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [formValid, setFormValid] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function LoginForm() {
   };
 
   const onChangeHandler = e => {
+    dispatch(authActions.resetError());
     const { name, value } = e.target;
     switch (name) {
       case 'email':
@@ -40,7 +41,6 @@ export default function LoginForm() {
         break;
     }
   };
-
   const onSubmitHandler = e => {
     e.preventDefault();
     const logInData = {

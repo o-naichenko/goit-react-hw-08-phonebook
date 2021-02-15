@@ -1,7 +1,8 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { CircularProgress, Box } from '@material-ui/core';
+import { CircularProgress, Box, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import AppBarComponent from './components/AppBar';
 import authOperations from './redux/auth/auth-operations';
@@ -18,6 +19,7 @@ const RegisterView = lazy(() => import('./views/RegisterView'));
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(authSelectors.getToken);
+  const authError = useSelector(authSelectors.getError);
 
   useEffect(() => {
     token && dispatch(authOperations.fetchCurrentUser());
@@ -25,8 +27,16 @@ function App() {
 
   return (
     <div className={s.mainContainer}>
+      <Snackbar
+        open={authError && true}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Alert severity="error">{authError}</Alert>
+      </Snackbar>
       <AppBarComponent />
-
       <Switch>
         <Suspense
           fallback={

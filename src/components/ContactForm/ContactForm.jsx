@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Paper, TextField } from '@material-ui/core';
+import PhoneInput from 'react-phone-number-input';
 import { contactsOperations, contactsSelectors } from 'redux/contacts';
 import s from './ContactForm.module.css';
 
@@ -19,11 +20,11 @@ export default function ContactForm() {
   function checkContactUnique(newContact) {
     if (contacts.find(contact => contact.name === newContact.name)) {
       setName('');
-      alert(`Contact with name: ${newContact.name} already exists`);
+      alert(`Контакт з іменем: ${newContact.name} вже існує`);
       return false;
     } else if (contacts.find(contact => contact.number === newContact.number)) {
       setNumber('');
-      alert(`Contact with number: ${newContact.number} already exists`);
+      alert(`Контакт з номером: ${newContact.number} вже існує`);
       return false;
     } else {
       return true;
@@ -31,10 +32,10 @@ export default function ContactForm() {
   }
   function checkInputsFill(name, number) {
     if (name.value.length === 0) {
-      alert('Please, fill name');
+      alert('Будь ласка, введіть ім`я');
       return false;
     } else if (number.value.length === 0) {
-      alert('Please, fill phone number');
+      alert('Будь ласка, введіть номер');
       return false;
     } else {
       return true;
@@ -62,7 +63,7 @@ export default function ContactForm() {
       name: name.value,
       number: number.value,
     };
-    if (checkInputsFill(name, number) === false) {
+    if (!checkInputsFill(name, number)) {
       return;
     } else if (checkContactUnique(newContact) === true) {
       dispatch(contactsOperations.addContact(newContact));
@@ -93,7 +94,9 @@ export default function ContactForm() {
             name="number"
             value={number}
             onChange={onChangeHandler}
-          ></TextField>
+          >
+            <PhoneInput />
+          </TextField>
           <Button variant="contained" size="small" type="submit">
             Зберегти
           </Button>
